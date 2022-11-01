@@ -1,20 +1,21 @@
 <template>
-    <div>
-        <div class="post" 
-            v-for="post in posts" 
-            :key="post.id"
-        >
-            <div class="post__author">
-                {{ post.author }}
+<div>
+  <div class="post-item__date">
+                    {{ post.publishedAt }}
             </div>
-            <div class="post__title">
+            <div class="post-item__title">
                     {{ post.title }}
             </div>
-            <div class="post__content">
+            <div class="post-item__content">
                     {{ post.content }}
             </div>
-        </div>
-    </div> 
+            <div class="post-item__author">
+              <div class="post-item__author_content">
+                    {{ post.author }}
+              </div>
+            </div>
+</div>
+            
 </template>
 
 <script>

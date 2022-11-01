@@ -6,7 +6,6 @@
             />
         </div>
     </div>
-    
 </template>
 
 <script>
@@ -37,7 +36,7 @@ export default {
 
 .filter__content {
     height: 132px;
-    width: 90vw;
+    width: $content-width;
     margin: auto;
     display: flex;
     align-items: center;  
