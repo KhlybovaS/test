@@ -40,7 +40,6 @@
 header {
     display: flex;
     align-items: center;
-    
     width: 100%;
     height: 88px;
     position: fixed;
