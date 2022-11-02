@@ -26,9 +26,11 @@
     height: 546px;
     position: relative;
     background: linear-gradient(45deg, $promo__background-color_begin, $promo__background-color_end);
+    padding-top: 88px;
 
     @media (max-width: $breakpoint_tablet) {
         height: 365px;
+        padding-top: 56px;
     }
 }
 
@@ -52,7 +54,7 @@
     margin: auto;
     padding-top: 100px;
     position: relative;
-    z-index: 10;
+    z-index: 1;
 
     @media (max-width: $breakpoint_tablet) {
         padding-top: 25px;
@@ -88,7 +90,7 @@
 
 .promo__content_btn {
     background-color: $promo__btn-color;
-    border-radius: 10px;
+    border-radius: $border-radius;
     color: $promo__btn_text-color;
     padding: 16px 32px;
     display: inline-block;

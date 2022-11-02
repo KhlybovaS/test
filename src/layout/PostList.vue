@@ -28,22 +28,22 @@
             id="selectedDateEnd"
           >
         </div>
-        
       </div>
       <div class="posts-content">
+        <transition-group name="post-list">
           <div
             v-for="post in filteredPosts"
             :key="post.id"
             class="post-item"
           >
             <div class="post-item__date">
-                    {{ post.publishedAt }}
+                    {{ post.publishedDate }}
             </div>
             <div class="post-item__title">
                     {{ post.title }}
             </div>
             <div class="post-item__content">
-                    {{ post.content }}
+                    {{ post.contentCut }}
             </div>
             <div class="post-item__author">
               <div class="post-item__author_content">
@@ -51,8 +51,8 @@
               </div>
             </div>
           </div>
+        </transition-group>
       </div>
-      
   </div>
   <h2 v-else class="posts__empty">
     Список постов пуст
@@ -60,26 +60,21 @@
 </template>
 
 <script>
-//import PostItem from "@/components/PostItem";
 import axios from 'axios';
 import CustomSelect from "@/components/CustomSelect.vue";
 import filterData from '@/utils/filter';
 
 export default {
-  components: {CustomSelect/*, PostItem*/},
-  /*props: {
-    posts: {
-      type: Array,
-      required: true
-    }
-  },*/
+  components: {
+    CustomSelect,
+  },
   data(){
     return {
       posts: [],
       options: [],
       selectedFilter: '',
       selectedDateBegin: false,
-      selectedDateEnd: false
+      selectedDateEnd: false,
     }
   },
   methods: {
@@ -93,11 +88,11 @@ export default {
         const response = await axios.get('https://mocki.io/v1/a5814d24-4e22-49fc-96d1-0e9ae2952afc');
         this.posts = response.data.articles;
         this.posts.forEach(row => {
-                        let publishedAt = row['publishedAt'] ? (new Date(row['publishedAt'])).toLocaleDateString("ru", params) : ''; 
-                        row['publishedAt'] = publishedAt;
+                        let publishedDate = row['publishedAt'] ? (new Date(row['publishedAt'])).toLocaleDateString("ru", params) : ''; 
+                        row['publishedDate'] = publishedDate;
 
-                        let content = row['content'] ? row['content'].substring(0,200).concat('', '...') : '';
-                        row['content'] = content;
+                        let contentCut = row['content'] ? row['content'].substring(0,200).concat('', '...') : '';
+                        row['contentCut'] = contentCut;
 
                         let author = row['author'] ? row['author'] : 'Without author';
                         row['author'] = author;
@@ -123,15 +118,9 @@ export default {
   },
   computed: {
     filteredPosts() {
-      return this.posts.filter(post => 
-        post.author.toLowerCase().includes(this.selectedFilter.toLowerCase()))
+      return this.posts.filter(post => post.author.toLowerCase().includes(this.selectedFilter.toLowerCase()))
         .filter(post => {
           if (this.selectedDateBegin && this.selectedDateEnd) {
-
-
-            console.log('date=', post.publishedAt);
-
-
               return (new Date(post.publishedAt)) >= (new Date(this.selectedDateBegin)) 
             && (new Date(post.publishedAt)) <= (new Date(this.selectedDateEnd))
             }
@@ -146,7 +135,7 @@ export default {
           
           return true;
     })},
-  },
+  }
 }
 </script>
 
@@ -176,10 +165,9 @@ export default {
   min-height: 100%;
 
 :hover {
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-  cursor: pointer;
-}
-  
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    cursor: pointer;
+  }
 }
 
 .post-item {
@@ -187,7 +175,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 24px;
-  border-radius: 10px;
+  border-radius: $border-radius;
   background-color: white;
   margin-bottom: 20px;
 
@@ -215,7 +203,7 @@ export default {
   line-height: $post-list_author_line-height;
   color: $post-list_author_text-color;
   background-color: $post-list_author_background-color;
-  border-radius: 10px;
+  border-radius: $border-radius;
   padding: 8px 20px;
 }
 
@@ -260,17 +248,20 @@ export default {
   margin: auto;
   padding-top: 40px;
   padding-bottom: 40px;
-
+  position: sticky;
+  top: 78px;
+  background-color: rgba(229,229,229,.8);
   
   @media( max-width: $breakpoint_tablet){
     flex-direction: column;
+    top: 46px;
   }
 }
 
 .posts__filter-section_label-begin {
   background-color: white;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-top-left-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
   display: flex;
   align-items: center;
   padding: 10px;
@@ -313,13 +304,11 @@ export default {
 
 .posts__filter-section_date-begin, .posts__filter-section_date-end {
   border: none;
-
- 
 }
 
 .posts__filter-section_date-end {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-right-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
   padding-right: 10px;
   padding: 16px;
 
@@ -348,9 +337,26 @@ export default {
 
 .posts__filter-section_content {
   display: flex;
+  min-height: 2em;
 
   @media( max-width: $breakpoint_tablet){
     width: $content-width;
   }
 }
+
+.post-list-enter-active,
+.post-list-leave-active {
+  transition: all 0.4s ease;
+}
+
+.post-list-enter-from,
+.post-list-leave-to {
+  opacity: 0;
+  transform: translateX(130px);
+}
+
+.post-list-move {
+  transition: all 0.4s ease;
+}
+
 </style>

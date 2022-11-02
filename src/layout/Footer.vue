@@ -1,13 +1,10 @@
 <template>
     <footer>
         <div class="footer__content">
-            <router-link 
-                :to="Space"
-                class="footer__content_logo"
-            >
+            <div class="footer__content_logo">
                 <img alt="Logo" src="@/assets/images/logo-footer.png" class="footer__content_logo-ellipse" />
                 <img alt="Logo" class="footer__content_logo-space" src="@/assets/images/Space-footer.png" />
-            </router-link>
+            </div>
             <div class="footer__content_nav">
                 <span class="footer__content_nav-item">Готовые решения</span>
                 <span class="footer__content_nav-item">О нас</span>
@@ -31,13 +28,8 @@
 
 <style lang="scss" scoped>
 footer {
-    //height: 228px;
     background-color: $footer__background-color;
     color: $footer__text-color;
-
-    @media(max-width: $breakpoint_tablet) {
-        //height: 252px;
-    }
 }
 
 .footer__content_nav {
@@ -68,7 +60,6 @@ footer {
         width: 50%;
         margin-top: 20px;
     }
-
 }
 
 .footer__contacts_links {

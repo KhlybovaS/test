@@ -10,15 +10,15 @@
             Выбор автора
         </option>
         <option
-        v-for="option in options"
-        :key="option.value"
-        :value="option.value"
-        class="custom_select_option"
+          v-for="option in options"
+          :key="option.value"
+          :value="option.value"
+          class="custom_select_option"
         >
-        {{ option.name }}
+          {{ option.name }}
         </option>
-  </select>
-</div>
+    </select>
+  </div>
 </template>
 
 <script>
@@ -45,25 +45,25 @@ export default {
 .custom_select {
     border: none;
     padding: 16px 16px 16px 0;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    width: 335px;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    width: 280px;
     color: #888888;
-    font-size: 18px;
+    font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
     background-color: white;
 
     @media(max-width: $breakpoint_tablet) {
-      font-size: 14px;
+      font-size: 1rem;
       width: $content-width;
     }
 }
 
 .custom_select_icon {
   background-color: white;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-top-left-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
   padding: 16px;
 
   @media( max-width: $breakpoint_tablet){

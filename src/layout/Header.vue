@@ -1,24 +1,38 @@
 <template>
     <header>
-        <router-link 
-            class="header__logo"
-            :to="Space"
-        >
-            <img alt="Logo" src="@/assets/images/logo.png" class="header__logo_ellipse"/>
-            <img alt="Logo" class="header__logo_space" src="@/assets/images/Space.png" />
-        </router-link>
-        <div class="header__contacts">
-            <a class="header__contacts_phone" href="tel:+88000000000">8 800 000 00 00</a>
-            <a class="header__contacts_email" href="mailto:sales@logo.ru">sales@logo.ru</a>
+        <div class="header__content">
+            <div class="header__logo">
+                <img alt="Logo" 
+                    src="@/assets/images/logo.png" 
+                    class="header__logo_ellipse"
+                />
+                <img alt="Logo" 
+                    class="header__logo_space" 
+                    src="@/assets/images/Space.png" 
+                />
+            </div>
+            <div class="header__contacts">
+                <a class="header__contacts_phone" 
+                    href="tel:+88000000000">
+                    800 000 00 00
+                </a>
+                <a class="header__contacts_email" 
+                    href="mailto:sales@logo.ru">
+                    sales@logo.ru
+                </a>
+            </div>
+            <div class="header__contacts_mobile">
+                <a href="tel:+88000000000">
+                    <img alt="phone" src="@/assets/images/phone.png" 
+                        class="header__contacts_phone-mobile"/>
+                </a>
+                <a href="mailto:sales@logo.ru">
+                    <img alt="mail" src="@/assets/images/mail.png" 
+                        class="header__contacts_email-mobile" />
+                </a>
+            </div>  
         </div>
-        <div class="header__contacts_mobile">
-            <a href="tel:+88000000000">
-                <img alt="phone" src="@/assets/images/phone.png" class="header__contacts_phone-mobile"/>
-            </a>
-            <a href="mailto:sales@logo.ru">
-                <img alt="mail" src="@/assets/images/mail.png" class="header__contacts_email-mobile" />
-            </a>
-        </div>
+        
   </header>
 </template>
 
@@ -26,14 +40,23 @@
 header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: $content-width;
-    margin: auto;
+    
+    width: 100%;
     height: 88px;
+    position: fixed;
+    background-color: white;
+    z-index: 2;
 
     @media(max-width: $breakpoint_tablet) {
         height: 56px;
     }
+}
+
+.header__content {
+    width: $content-width;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
 }
 
 .header__logo {
